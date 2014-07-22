@@ -22,7 +22,7 @@ public class StackVector<E> implements Stack<E> {
     }
     
     public void push(E item){
-        data.add(100,item);
+        data.addElement(item);
     }
     
     public E pop(){
