@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-package Main;
 
 import java.util.AbstractList;
 import java.util.Vector;
@@ -23,7 +22,7 @@ public class StackVector<E> implements Stack<E> {
     }
     
     public void push(E item){
-        data.add(item);
+        data.add(100,item);
     }
     
     public E pop(){

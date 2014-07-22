@@ -1,7 +1,16 @@
-public interface Stack<E> 
-{
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-   public void push(E item);
+
+/**
+ *
+ * @author Javier Bucaro
+ */
+public interface Stack<E> {
+    public void push(E item);
    // pre: 
    // post: item is added to stack
    // will be popped next if no intervening push
@@ -20,4 +29,5 @@ public interface Stack<E>
    public int size();
    // post: returns the number of elements in the stack
 
+    
 }
