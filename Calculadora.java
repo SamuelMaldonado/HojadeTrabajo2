@@ -1,82 +1,108 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
+ /**
+   * @Calculadora.java  1.0 24/07/2014
+   *
+   * Universidad del Valle de Guatemala.
+   * Seccion: 21 P.O.O.
+   * @author Brandon Mendez Carnet: 13087
+   * @author Javier Bucaro: 13033
+   * @author Samuel Maldonado: 13153
+   * Calculadora: Lee un archivo.txt una expresion en un formato postfix y lo calcula
+   * 
+   */
 
 import java.io.*;
-/**
- *
- * @author Javier Bucaro
- */
-public class Calculadora {
-    private static Stack<Integer> data;
-    public static void main(String[] args){
-        data = new StackVector<Integer>();
-        File file = new File("Datos.txt");
-        String car=null;
-        int operando1 = 0;
-        int operando2 = 0;
-        int resultado = 0;
-                
-        
-        if(!file.exists()){
-            try{
-                file.createNewFile();
-                System.out.println(file.getName()+" Ha sido creado");
-            }catch(IOException ex){
-                ex.printStackTrace();
-            }       
-        }
-        
-        try{
-            FileReader fr = new FileReader("C:\\Users\\Samuel\\git\\HojadeTrabajo2\\Datos.txt");
-            BufferedReader br = new BufferedReader(fr); 
-            
-            car = br.readLine();
-        }catch(Exception ex){
-            
-        }
-        
-        
-        //ciclo que compara cada caracter para saber si hacer push o pop y que operacion realizar
-        for (int x=0; x<car.length(); x++){
-	        if (car.charAt(x)=='+'){					//suma los 2 ultimos valores si encuentra un "+"
-	        	operando1 = data.pop();
-	        	operando2 = data.pop();
-	        	resultado = operando1 + operando2;
-	        	data.push(resultado);
-	        }
 
-	        if (car.charAt(x)=='-'){					//resta los 2 ultimos valores si encuentra un "-"
-	        	operando1 = data.pop();
-	        	operando2 = data.pop();
-	        	resultado = operando1 - operando2;
-	        	data.push(resultado);
-	        }
-	       
-	        if (car.charAt(x)=='*'){					//multiplica los 2 ultimos valores si encuentra un "*"
-	        	operando1 = data.pop();
-	        	operando2 = data.pop();
-	        	resultado = operando1 * operando2;
-	        	data.push(resultado);	        	
-	        }
-	        
-	        if (car.charAt(x)=='/'){					//divide los 2 ultimos valores si encuentra un "/"
-	        	operando1 = data.pop();
-	        	operando2 = data.pop();
-	        	resultado = operando1 / operando2;
-	        	data.push(resultado);	        	
-	        }	        
-	        
-	        if (car.charAt(x)=='0' || car.charAt(x)=='1' || car.charAt(x)=='2' || car.charAt(x)=='3' 			//si encuentra un numero lo guarda en la pila
-	        		 || car.charAt(x)=='4' || car.charAt(x)=='5' || car.charAt(x)=='6' || car.charAt(x)=='7' 
-	        		 || car.charAt(x)=='8' || car.charAt(x)=='9'){
-	        	data.push((int)car.charAt(x));
-	        }	        
-        }
-        
-        System.out.println(data.pop());					//se imprime el resultado final
-    }    
+public class Calculadora {
+	/*Atributos de la calse*/
+	private StackVector<Integer> data;
+	private String car;
+	private int operando1,operando2,resultado;
+	private char aChar;						//Se guarda el caracter que se va a ir leyendo
+	
+	/**
+	 * Constuctor de la clase
+	 */
+	public Calculadora() {
+		data = new StackVector<Integer>();
+		car="";
+		operando1=0;
+		operando2=0;
+		resultado=0;
+	}
+
+
+	/**
+	 * Metodo que muestra el resultado de la operacion en el archivo .txt
+	 */
+	public void muestraResultado() {
+	      File text = null;													//Objeto de tipo File
+	      FileReader fr = null;												//Se crea objeto lector de objetos File
+	      BufferedReader br = null;											//Objeto que me carga en el buffer
+	 
+	      try {
+	    	  String dir = System.getProperty("user.dir");
+	    	  text = new File (dir+"\\Datos.txt");									//Se abre el fichero
+	         
+	         fr = new FileReader (text);									//Lector del archivo
+	         br = new BufferedReader(fr);									//Se carga el archivo
+	
+	         car=br.readLine();										//Se guarda lo leido en stringDatos
+	      }
+	      catch(Exception e){
+	         e.printStackTrace();
+	      }finally{															//Se asegura que se cierre el fichero
+	         try{                    
+	            if( null != fr ){   
+	               fr.close();     
+	            }                  
+	         }catch (Exception e2){ 
+	            e2.printStackTrace();
+	         }
+	      }
+	          
+	  	//ciclo que compara cada caracter para saber si hacer push o pop y que operacion realizar
+	      for (int x=0; x<car.length(); x++){
+	    	  aChar=car.charAt(x);
+	          if (aChar=='+'){					//suma los 2 ultimos valores si encuentra un "+"
+	          	operando1 = data.pop();
+	          	operando2 = data.pop();
+	          	resultado = operando1 + operando2;
+	          	data.push(resultado);
+	          }
+
+	          if (aChar=='-'){					//resta los 2 ultimos valores si encuentra un "-"
+	          	operando1 = data.pop();
+	          	operando2 = data.pop();
+	          	resultado = operando1 - operando2;
+	          	data.push(resultado);
+	          }
+	         
+	          if (aChar=='*'){					//multiplica los 2 ultimos valores si encuentra un "*"
+	          	operando1 = data.pop();
+	          	operando2 = data.pop();
+	          	resultado = operando1 * operando2;
+	          	data.push(resultado);	        	
+	          }
+	          
+	          if (aChar=='/'){					//divide los 2 ultimos valores si encuentra un "/"
+	          	operando1 = data.pop();
+	          	operando2 = data.pop();
+	          	resultado = operando1 / operando2;
+	          	data.push(resultado);	        	
+	          }	        
+	          
+	          if (aChar=='0' || aChar=='1' || aChar=='2' || aChar=='3' 			//si encuentra un numero lo guarda en la pila
+	          		 || aChar=='4' || aChar=='5' || aChar=='6' || aChar=='7' 
+	          		 || aChar=='8' || aChar=='9'){
+	          	data.push((int)aChar-48);
+	          }
+	           
+	      }
+	      System.out.println("\n/*************************/ " );
+	      System.out.println("El resultado es: "+data.peek());
+	      System.out.println("/*************************/ " );
+
+	}
 }
+	
