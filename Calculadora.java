@@ -1,4 +1,5 @@
 
+
  /**
    * @Calculadora.java  1.0 24/07/2014
    *
@@ -104,5 +105,9 @@ public class Calculadora {
 	      System.out.println("/*************************/ " );
 
 	}
+        
+        public int getResultado(){		//devuelve el resultado final, se usa para la prueba unitaria
+            return resultado;
+        }
 }
 	
